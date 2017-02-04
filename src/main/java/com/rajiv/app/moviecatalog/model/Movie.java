@@ -13,6 +13,10 @@ public class Movie {
 	public Movie(String name) {
 		this.name = name;
 	}
+	
+	public Movie() {
+		
+	}
 
 	public void setId(String id) {
 		this.id = id;

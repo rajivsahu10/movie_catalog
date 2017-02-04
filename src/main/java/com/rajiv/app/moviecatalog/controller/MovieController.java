@@ -3,6 +3,8 @@ package com.rajiv.app.moviecatalog.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +21,7 @@ public class MovieController {
 	@Autowired
 	private MovieRepository movieRepository;
 
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public Movie getMovie(@RequestParam(value = "name") String name) {
 		return movieRepository.findByName(name);
 	}
@@ -30,8 +32,18 @@ public class MovieController {
 		return movies;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)	
+	@RequestMapping(method = RequestMethod.POST)
 	public Movie createMovie(@RequestBody Movie movie) {
 		return movieRepository.insert(movie);
+	}
+	
+	@RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
+	public void deleteMovie(@PathVariable String id) {
+		movieRepository.delete(id);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public void updateMovie(@RequestBody Movie movie) {
+		movieRepository.save(movie);
 	}
 }
