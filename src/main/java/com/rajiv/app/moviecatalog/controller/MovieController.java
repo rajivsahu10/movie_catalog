@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rajiv.app.moviecatalog.exceptions.DuplicateMovieException;
+import com.rajiv.app.moviecatalog.exceptions.MovieNotFoundException;
 import com.rajiv.app.moviecatalog.model.Movie;
 import com.rajiv.app.moviecatalog.service.MovieService;
 
@@ -29,6 +30,12 @@ public class MovieController {
 	@RequestMapping(method = RequestMethod.GET)
 	public Movie getMovie(@RequestParam(value = "name") String name) {
 		return movieService.getMovieByName(name);
+	}
+	
+	@ExceptionHandler(MovieNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public String handleMovieNotFoundException(MovieNotFoundException e) {
+		return e.getMessage();
 	}
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
