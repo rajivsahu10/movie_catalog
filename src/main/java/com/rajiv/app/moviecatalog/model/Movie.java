@@ -1,5 +1,8 @@
 package com.rajiv.app.moviecatalog.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +11,9 @@ public class Movie {
 
 	@Id
 	private String id;
+	
+	@NotNull
+	@NotBlank
 	private String name;
 
 	public Movie(String name) {
